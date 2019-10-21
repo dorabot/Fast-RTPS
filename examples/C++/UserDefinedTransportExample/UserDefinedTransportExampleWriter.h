@@ -35,6 +35,8 @@ class my_WriterListener: public eprosima::fastrtps::rtps::WriterListener
 		~my_WriterListener();
 		void onWriterMatched(eprosima::fastrtps::rtps::RTPSWriter* writer, eprosima::fastrtps::rtps::MatchingInfo& info);
 		int n_matched;
+        std::condition_variable cv_;
+        std::mutex mutex_;
 };
 
 
@@ -52,7 +54,7 @@ class UserDefinedTransportExampleWriter
         	
         void init();
         bool isInitialized();
-	void sendData();
+    void sendData();
 
     private:
         eprosima::fastrtps::rtps::RTPSParticipantAttributes pattr;

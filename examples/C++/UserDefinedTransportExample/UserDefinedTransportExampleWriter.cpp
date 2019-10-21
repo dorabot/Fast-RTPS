@@ -24,12 +24,20 @@ my_WriterListener::~my_WriterListener(){}
 
 void my_WriterListener::onWriterMatched(RTPSWriter*, MatchingInfo& info)
 {
-	if(info.status == MATCHED_MATCHING)
-		++n_matched;
+    if(info.status == MATCHED_MATCHING)
+    {
+        ++n_matched;
+        cv_.notify_all();
+    }
 }
 
 void UserDefinedTransportExampleWriter::waitformatching(){
-	while(my_listener->n_matched == 0){}
+    // wait for the connection
+    std::unique_lock<std::mutex> lock(my_listener->mutex_);
+    my_listener->cv_.wait(lock, [&]()
+    {
+        return my_listener->n_matched > 0;
+    });
 	return;
 }
    	
@@ -75,7 +83,7 @@ bool UserDefinedTransportExampleWriter::isInitialized() { return initialized_; }
 void UserDefinedTransportExampleWriter::sendData(){
 	waitformatching();
 	for(int i=0;i<10;i++){
-		CacheChange_t * ch = my_writer->new_change([]() -> int32_t { return 255; }, ALIVE);
+        CacheChange_t * ch = my_writer->new_change([]() -> int32_t { return 255; }, ALIVE);
 #if defined(_WIN32)
 	ch->serializedPayload.length =
 		sprintf_s((char*)ch->serializedPayload.data, 255, "My example string %d", i)+1;
