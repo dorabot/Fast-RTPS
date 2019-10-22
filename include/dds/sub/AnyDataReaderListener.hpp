@@ -20,10 +20,17 @@
 #ifndef OMG_DDS_SUB_ANY_DATA_READER_LISTENER_HPP_
 #define OMG_DDS_SUB_ANY_DATA_READER_LISTENER_HPP_
 
+
+// TODO Remove when PSM DDS Listeners are ready to be used.
+#include <fastdds/dds/topic/DataReaderListener.hpp>
+
 #include <dds/core/refmacros.hpp>
 #include <dds/core/ref_traits.hpp>
 #include <dds/core/status/Status.hpp>
-#include <dds/sub/AnyDataReader.hpp>
+#include <dds/sub/DataReader.hpp>
+// TODO uncomment when PSM DDS Listeners are ready to be used.
+//#include <dds/sub/AnyDataReader.hpp>
+
 
 namespace dds {
 namespace sub {
@@ -45,7 +52,9 @@ namespace sub {
  * @see dds::sub::SubscriberListener
  * @see dds::domain::DomainParticipantListener
  */
-class OMG_DDS_API AnyDataReaderListener
+// TODO Uncomment when PSM DDS listeners are ready to be used
+//class OMG_DDS_API AnyDataReaderListener
+class AnyDataReaderListener : public eprosima::fastdds::dds::DataReaderListener
 {
 public:
     /** @cond */
@@ -106,7 +115,9 @@ public:
  * @see dds::sub::NoOpSubscriberListener
  * @see dds::domain::NoOpDomainParticipantListener
  */
-class OMG_DDS_API NoOpAnyDataReaderListener : public virtual AnyDataReaderListener
+// TODO Uncomment when PSM DDS listeners are ready to be used
+//class OMG_DDS_API NoOpAnyDataReaderListener : public virtual AnyDataReaderListener
+class NoOpAnyDataReaderListener : public eprosima::fastdds::dds::DataReaderListener
 {
 /** @cond
  * All these functions have already been documented in the non-NoOp listener.

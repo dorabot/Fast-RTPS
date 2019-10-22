@@ -20,8 +20,13 @@
 #ifndef OMG_DDS_PUB_ANY_DATA_WRITER_LISTENER_HPP_
 #define OMG_DDS_PUB_ANY_DATA_WRITER_LISTENER_HPP_
 
-#include <dds/pub/AnyDataWriter.hpp>
+// TODO Remove when PSM DDS Listeners are ready to be used.
+#include <fastdds/dds/topic/DataWriterListener.hpp>
+
+// TODO uncomment when PSM DDS Listeners are ready to be used.
+//#include <dds/pub/AnyDataWriter.hpp>
 #include <dds/core/status/Status.hpp>
+#include <dds/pub/DataWriter.hpp>
 
 namespace dds {
 namespace pub {
@@ -43,7 +48,9 @@ namespace pub {
  * @see dds::pub::PublisherListener
  * @see dds::domain::DomainParticipantListener
  */
-class AnyDataWriterListener
+// TODO Uncomment when PSM DDS listeners are ready to be used
+//class AnyDataWriterListener
+class AnyDataWriterListener : public eprosima::fastdds::dds::DataWriterListener
 {
 public:
     /** @cond */
@@ -75,7 +82,6 @@ public:
 
 };
 
-
 /**
  * @brief
  * AnyDataWriter events Listener
@@ -89,7 +95,9 @@ public:
  * @see dds::pub::NoOpPublisherListener
  * @see dds::domain::NoOpDomainParticipantListener
  */
-class NoOpAnyDataWriterListener : public virtual AnyDataWriterListener
+// TODO Uncomment when PSM DDS listeners are ready to be used
+//class NoOpAnyDataWriterListener : public virtual AnyDataWriterListener
+class NoOpAnyDataWriterListener : public eprosima::fastdds::dds::DataWriterListener
 {
 /** @cond
  * All these functions have already been documented in the non-NoOp listener.

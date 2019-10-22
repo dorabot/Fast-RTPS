@@ -20,11 +20,11 @@
 #ifndef OMG_DDS_SUB_SUBSCRIBER_LISTENER_HPP_
 #define OMG_DDS_SUB_SUBSCRIBER_LISTENER_HPP_
 
-// TODO Uncomment the PSM listeners are implemented.
-//#include <dds/sub/AnyDataReaderListener.hpp>
-
-// TODO Remove the PSM listeners are implemented.
+// TODO Remove when PSM DDS Listeners are ready to be used.
 #include <fastdds/dds/subscriber/SubscriberListener.hpp>
+
+// TODO uncomment when PSM DDS Listeners are ready to be used.
+//#include <dds/sub/AnyDataReaderListener.hpp>
 
 #include <dds/sub/Subscriber.hpp>
 
@@ -132,7 +132,7 @@ class SubscriberListener : public eprosima::fastdds::dds::SubscriberListener
 {
 public:
     /** @cond */
-    //typedef ::dds::core::smart_ptr_traits<SubscriberListener>::ref_type ref_type;
+    typedef ::dds::core::smart_ptr_traits<SubscriberListener>::ref_type ref_type;
     /** @endcond */
 
     /** @cond */
@@ -170,7 +170,7 @@ public:
      */
     virtual void on_data_on_readers(
             //Subscriber& sub) = 0;
-            Subscriber& sub) {};
+            Subscriber& sub) = 0;
 };
 
 

@@ -32,12 +32,12 @@
 namespace dds {
 namespace pub {
 
-template<
-        typename T,
-        template<typename Q> class DELEGATE = dds::pub::detail::DataWriter >
+//template<
+//        typename T,
+//        template<typename Q> class DELEGATE = dds::pub::detail::DataWriter >
 class DataWriter;
 
-template<typename T>
+//template<typename T>
 class DataWriterListener;
 
 /** @endcond */
@@ -85,23 +85,30 @@ class DataWriterListener;
  * @see @ref DCPS_Modules_Publication "Publication concept"
  * @see @ref DCPS_Modules_Publication_DataWriter "DataWriter concept"
  */
-template<
-        typename T,
-        template<typename Q> class DELEGATE>
-class DataWriter : public TAnyDataWriter< DELEGATE<T> >
+// TODO Uncomment when PSM DDS DataWriter is ready to be used
+//template<
+//        typename T,
+//        template<typename Q> class DELEGATE>
+//class DataWriter : public TAnyDataWriter< DELEGATE<T> >
+class DataWriter : public eprosima::fastdds::dds::DataWriter
 {
-
 public:
     /**
      * Local convenience typedef for dds::pub::DataWriterListener.
      */
-    typedef DataWriterListener<T> Listener;
+   // typedef DataWriterListener<T> Listener;
+    using Listener = DataWriterListener;
 
-    OMG_DDS_REF_TYPE_PROTECTED_DC_T(
+//    OMG_DDS_REF_TYPE_PROTECTED_DC_T(
+//            DataWriter,
+//            dds::pub::TAnyDataWriter,
+//            T,
+//            detail::DataWriter)
+
+    OMG_DDS_REF_TYPE_PROTECTED_DC(
             DataWriter,
-            dds::pub::TAnyDataWriter,
-            T,
-            DELEGATE)
+            dds::pub::AnyDataWriter,
+            detail::DataWriter)
 
     OMG_DDS_IMPLICIT_REF_BASE(
             DataWriter)
@@ -131,7 +138,8 @@ public:
      */
     DataWriter(
             const Publisher& pub,
-            const ::dds::topic::Topic<T>& topic);
+            //const ::dds::topic::Topic<T>& topic);
+            const ::dds::topic::Topic& topic);
 
     /**
      * Create a new DataWriter for the desired Topic, using the given Publisher and
@@ -199,9 +207,11 @@ public:
      */
     DataWriter(
             const Publisher& pub,
-            const ::dds::topic::Topic<T>& topic,
+            //const ::dds::topic::Topic<T>& topic,
+            const ::dds::topic::Topic& topic,
             const qos::DataWriterQos& qos,
-            DataWriterListener<T>* listener = NULL,
+            //DataWriterListener<T>* listener = NULL,
+            DataWriterListener* listener = NULL,
             const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     /** @cond */
@@ -261,7 +271,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     void write(
-            const T& sample);
+            //const T& sample);
+            const void* sample);
 
     /**
      * This operation modifies the value of a data instance and provides a value for the
@@ -302,7 +313,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     void write(
-            const T& sample,
+            //const T& sample,
+            const void* sample,
             const dds::core::Time& timestamp);
 
     /**
@@ -368,7 +380,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     void write(
-            const T& sample,
+            //const T& sample,
+            const void* sample,
             const ::dds::core::InstanceHandle& instance);
 
     /**
@@ -416,7 +429,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     void write(
-            const T& data,
+            //const T& data,
+            const void* data,
             const ::dds::core::InstanceHandle& instance,
             const dds::core::Time& timestamp);
 
@@ -462,7 +476,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     void write(
-            const dds::topic::TopicInstance<T>& i);
+            //const dds::topic::TopicInstance<T>& i);
+            const dds::topic::TopicInstance& i);
 
     /**
      * This operation modifies the value of a data instance and provides a value for the
@@ -509,7 +524,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     void write(
-            const dds::topic::TopicInstance<T>& i,
+            //const dds::topic::TopicInstance<T>& i,
+            const dds::topic::TopicInstance& i,
             const dds::core::Time& timestamp);
 
     /**
@@ -733,15 +749,18 @@ public:
 
     /** @copydoc dds::pub::DataWriter::write(const T& data) */
     DataWriter& operator <<(
-            const T& data);
+            //const T& data);
+            const void* data);
 
     /** @copydoc dds::pub::DataWriter::write(const T& sample, const dds::core::Time& timestamp) */
     DataWriter& operator <<(
-            const std::pair<T, dds::core::Time>& data);
+            //const std::pair<T, dds::core::Time>& data);
+            const std::pair<void*, dds::core::Time>& data);
 
     /** @copydoc dds::pub::DataWriter::write(const T& sample, const ::dds::core::InstanceHandle& instance) */
     DataWriter& operator <<(
-            const std::pair<T, ::dds::core::InstanceHandle>& data);
+            //const std::pair<T, ::dds::core::InstanceHandle>& data);
+            const std::pair<void*, ::dds::core::InstanceHandle>& data);
 
     /** @cond
      * This can be useful for the DataReader (see fi MaxSamplesManipulatorFunctor), but not
@@ -819,7 +838,8 @@ public:
      *                  The handle has not been registered with this DataWriter.
      */
     const ::dds::core::InstanceHandle register_instance(
-            const T& key);
+            //const T& key);
+            const void* key);
 
     /**
      * This operation will inform the Data Distribution Service that the application will be
@@ -873,7 +893,8 @@ public:
      *                  The handle has not been registered with this DataWriter.
      */
     const ::dds::core::InstanceHandle register_instance(
-            const T& key,
+            //const T& key,
+            const void* key,
             const dds::core::Time& timestamp);
 
     /**
@@ -1064,7 +1085,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     DataWriter& unregister_instance(
-            const T& key);
+            //const T& key);
+            const void* key);
 
     /**
      * This operation will inform the Data Distribution Service that the application will not
@@ -1120,7 +1142,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     DataWriter& unregister_instance(
-            const T& key,
+            //const T& key,
+            const void* key,
             const dds::core::Time& timestamp);
 
     /**
@@ -1333,7 +1356,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     DataWriter& dispose_instance(
-            const T& key);
+            //const T& key);
+            const void* key);
 
     /**
      * This operation requests the Data Distribution Service to mark the instance for
@@ -1384,7 +1408,8 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
     DataWriter& dispose_instance(
-            const T& key,
+            //const T& key,
+            const void* key,
             const dds::core::Time& timestamp);
 
     /**
@@ -1418,8 +1443,10 @@ public:
      * @throws dds::core::PreconditionNotMetError
      *                  The handle has not been registered with this DataWriter.
      */
-    dds::topic::TopicInstance<T>& key_value(
-            dds::topic::TopicInstance<T>& i,
+    //dds::topic::TopicInstance<T>& key_value(
+    dds::topic::TopicInstance& key_value(
+            //dds::topic::TopicInstance<T>& i,
+            dds::topic::TopicInstance& i,
             const ::dds::core::InstanceHandle& h);
 
     /**
@@ -1453,8 +1480,10 @@ public:
      * @throws dds::core::PreconditionNotMetError
      *                  The handle has not been registered with this DataWriter.
      */
-    T& key_value(
-            T& sample,
+    //T& key_value(
+    void* key_value(
+            //T& sample,
+            void* sample,
             const ::dds::core::InstanceHandle& h);
 
     /**
@@ -1481,7 +1510,8 @@ public:
      *                  The entity has already been closed.
      */
     dds::core::InstanceHandle lookup_instance(
-            const T& key);
+            //const T& key);
+            const void* key);
 
     //==========================================================================
     //== QoS Management
@@ -1505,7 +1535,8 @@ public:
      * @throws dds::core::AlreadyClosedError
      *                  The entity has already been closed.
      */
-    const dds::topic::Topic<T>& topic() const;
+    //const dds::topic::Topic<T>& topic() const;
+    const dds::topic::Topic& topic() const;
 
     //==========================================================================
     //== Listeners Management
@@ -1587,7 +1618,8 @@ public:
      *                  complete this operation.
      */
     void listener(
-            DataWriterListener<T>* listener,
+            //DataWriterListener<T>* listener,
+            DataWriterListener* listener,
             const ::dds::core::status::StatusMask& mask);
 
     /**
@@ -1599,7 +1631,8 @@ public:
      * @throws dds::core::NullReferenceError
      *                  The entity was not properly created and references to dds::core::null.
      */
-    DataWriterListener<T>* listener() const;
+    //DataWriterListener<T>* listener() const;
+    DataWriterListener* listener() const;
 };
 
 } //namespace pub

@@ -20,6 +20,8 @@
 #ifndef OMG_DDS_PUB_DATA_WRITER_LISTENER_HPP_
 #define OMG_DDS_PUB_DATA_WRITER_LISTENER_HPP_
 
+// TODO Remove when PSM DDS Listeners are ready to be used.
+#include <fastdds/dds/topic/DataWriterListener.hpp>
 
 #include <dds/pub/DataWriter.hpp>
 
@@ -97,8 +99,10 @@ namespace pub {
  * @see @ref DCPS_Modules_Publication_DataWriter "Data Writer"
  * @see @ref DCPS_Modules_Infrastructure_Listener "Listener information"
  */
-template<typename T>
-class DataWriterListener
+// TODO Uncomment when PSM DDS listeners are ready to be used
+//template<typename T>
+//class DataWriterListener
+class DataWriterListener : public eprosima::fastdds::dds::DataWriterListener
 {
 public:
     /** @cond */
@@ -126,8 +130,9 @@ public:
      *               the application).
      */
     virtual void on_offered_deadline_missed(
-        DataWriter<T>& writer,
-        const dds::core::status::OfferedDeadlineMissedStatus& status) = 0;
+            //DataWriter<T>& writer,
+            DataWriter& writer,
+            const dds::core::status::OfferedDeadlineMissedStatus& status) = 0;
 
     /**
      * This operation called by the Data Distribution Service when the
@@ -147,8 +152,9 @@ public:
      *               an input to the application).
      */
     virtual void on_offered_incompatible_qos(
-        DataWriter<T>& writer,
-        const dds::core::status::OfferedIncompatibleQosStatus&  status) = 0;
+            //DataWriter<T>& writer,
+            DataWriter& writer,
+            const dds::core::status::OfferedIncompatibleQosStatus&  status) = 0;
 
     /**
      * This operation is called by the Data Distribution Service when the
@@ -170,8 +176,9 @@ public:
      *               to the application).
      */
     virtual void on_liveliness_lost(
-        DataWriter<T>& writer,
-        const dds::core::status::LivelinessLostStatus& status) = 0;
+            //DataWriter<T>& writer,
+            DataWriter& writer,
+            const dds::core::status::LivelinessLostStatus& status) = 0;
 
     /**
      * This operation is called by the Data
@@ -198,8 +205,9 @@ public:
      *               provided by the Data Distribution Service).
      */
     virtual void on_publication_matched(
-        DataWriter<T>& writer,
-        const dds::core::status::PublicationMatchedStatus& status) = 0;
+            //DataWriter<T>& writer,
+            DataWriter& writer,
+            const dds::core::status::PublicationMatchedStatus& status) = 0;
 };
 
 
@@ -219,8 +227,11 @@ public:
  *
  * @see dds::pub::DataWriterListener
  */
-template<typename T>
-class NoOpDataWriterListener : public virtual DataWriterListener<T>
+
+// TODO Uncomment when PSM DDS listeners are ready to be used
+//template<typename T>
+//class NoOpDataWriterListener : public virtual DataWriterListener<T>
+class NoOpDataWriterListener : public eprosima::fastdds::dds::DataWriterListener
 {
 /** @cond
  * All these functions have already been documented in the non-NoOp listener.
@@ -232,25 +243,29 @@ public:
     }
 
     virtual void on_offered_deadline_missed(
-            DataWriter<T>& writer,
+            //DataWriter<T>& writer,
+            DataWriter& writer,
             const dds::core::status::OfferedDeadlineMissedStatus& status)
     {
     }
 
     virtual void on_offered_incompatible_qos(
-            DataWriter<T>& writer,
+            //DataWriter<T>& writer,
+            DataWriter& writer,
             const dds::core::status::OfferedIncompatibleQosStatus&  status)
     {
     }
 
     virtual void on_liveliness_lost(
-            DataWriter<T>& writer,
+            //DataWriter<T>& writer,
+            DataWriter& writer,
             const dds::core::status::LivelinessLostStatus& status)
     {
     }
 
     virtual void on_publication_matched(
-            DataWriter<T>& writer,
+            //DataWriter<T>& writer,
+            DataWriter& writer,
             const dds::core::status::PublicationMatchedStatus& status)
     {
     }
