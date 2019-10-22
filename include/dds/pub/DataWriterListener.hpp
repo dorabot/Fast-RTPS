@@ -23,10 +23,16 @@
 // TODO Remove when PSM DDS Listeners are ready to be used.
 #include <fastdds/dds/topic/DataWriterListener.hpp>
 
-#include <dds/pub/DataWriter.hpp>
+#include <dds/core/status/Status.hpp>
 
 namespace dds {
 namespace pub {
+
+// TODO Uncomment when PSM DDS DataWriter is ready to be used
+//template<
+//        typename T,
+//        template<typename Q> class DELEGATE>
+class DataWriter;
 
 /**
  *  * @brief
@@ -247,6 +253,8 @@ public:
             DataWriter& writer,
             const dds::core::status::OfferedDeadlineMissedStatus& status)
     {
+        (void) writer;
+        (void) status;
     }
 
     virtual void on_offered_incompatible_qos(
@@ -254,6 +262,8 @@ public:
             DataWriter& writer,
             const dds::core::status::OfferedIncompatibleQosStatus&  status)
     {
+        (void) writer;
+        (void) status;
     }
 
     virtual void on_liveliness_lost(
@@ -261,6 +271,8 @@ public:
             DataWriter& writer,
             const dds::core::status::LivelinessLostStatus& status)
     {
+        (void) writer;
+        (void) status;
     }
 
     virtual void on_publication_matched(
@@ -268,6 +280,8 @@ public:
             DataWriter& writer,
             const dds::core::status::PublicationMatchedStatus& status)
     {
+        (void) writer;
+        (void) status;
     }
 /** @endcond */
 };

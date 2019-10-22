@@ -29,7 +29,7 @@
 namespace dds {
 namespace sub {
 
-// TODO Uncomment when PSM DDS listeners are ready to be used
+// TODO Uncomment when PSM DDS DataReader is ready to be used
 //template<
 //        typename T,
 //        template<typename Q> class DELEGATE>

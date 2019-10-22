@@ -20,10 +20,6 @@
 
 #include <fastdds/dds/topic/DataWriter.hpp>
 
-#include <dds/topic/Topic.hpp>
-#include <dds/pub/AnyDataWriter.hpp>
-#include <dds/topic/detail/Topic.hpp>
-
 /**
  * @cond
  * Ignore this file in the API
@@ -33,6 +29,7 @@ namespace dds {
 namespace pub {
 namespace detail {
 
+template<typename T>
 using DataWriter = eprosima::fastdds::dds::DataWriter;
 
 } //namespace detail
