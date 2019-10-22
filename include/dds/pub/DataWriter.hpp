@@ -33,12 +33,10 @@
 namespace dds {
 namespace pub {
 
-template<
-        typename T,
-        template<typename Q> class DELEGATE = dds::pub::detail::DataWriter >
+template<typename T>
 class DataWriter;
 
-//template<typename T>
+template<typename T>
 class DataWriterListener;
 
 /** @endcond */
@@ -87,24 +85,18 @@ class DataWriterListener;
  * @see @ref DCPS_Modules_Publication_DataWriter "DataWriter concept"
  */
 // TODO Uncomment when PSM DDS DataWriter is ready to be used
-template<
-        typename T,
-        template<typename Q> class DELEGATE>
-class DataWriter : public TAnyDataWriter< DELEGATE<T> >
-//class DataWriter : public eprosima::fastdds::dds::DataWriter
+template<typename T>
+class DataWriter : public AnyDataWriter
 {
 public:
     /**
      * Local convenience typedef for dds::pub::DataWriterListener.
      */
-   // typedef DataWriterListener<T> Listener;
-    using Listener = DataWriterListener;
+    using Listener = DataWriterListener<T>;
 
-    OMG_DDS_REF_TYPE_PROTECTED_DC_T(
+    OMG_DDS_EXPLICIT_REF_BASE_DECL(
             DataWriter,
-            dds::pub::TAnyDataWriter,
-            T,
-            detail::DataWriter)
+            dds::pub::AnyDataWriter)
 
     OMG_DDS_IMPLICIT_REF_BASE(
             DataWriter)
@@ -203,15 +195,13 @@ public:
      * @throws dds::core::PreconditionNotMetError
      *                  The History QosPolicy is not KEEP_ALL when applied to a coherent writer.
      */
-    DataWriter(
-            const Publisher& pub,
-            //const ::dds::topic::Topic<T>& topic,
-            // TODO Uncomment when PSM DDS DataWriter is ready to be used
-            //const ::dds::topic::Topic& topic,
-            const qos::DataWriterQos& qos,
-            //DataWriterListener<T>* listener = NULL,
-            DataWriterListener* listener = NULL,
-            const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataWriter(
+//            const Publisher& pub,
+//            const ::dds::topic::Topic<T>& topic,
+//            const qos::DataWriterQos& qos,
+//            DataWriterListener<T>* listener = NULL,
+//            const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     /** @cond */
     virtual ~DataWriter();
@@ -471,10 +461,9 @@ public:
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
 
-    void write();
-            //const dds::topic::TopicInstance<T>& i);
-            // TODO Uncomment when PSM DDS Topic is ready to be used
-            //const dds::topic::TopicInstance& i);
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    void write(
+//            const dds::topic::TopicInstance<T>& i);
 
     /**
      * This operation modifies the value of a data instance and provides a value for the
@@ -520,11 +509,10 @@ public:
      *                  This caused blocking of the write operation, which could not be resolved before
      *                  max_blocking_time of the Reliability QosPolicy elapsed.
      */
-    void write(
-            //const dds::topic::TopicInstance<T>& i,
-            // TODO Uncomment when PSM DDS Topic is ready to be used
-            //const dds::topic::TopicInstance& i,
-            const dds::core::Time& timestamp);
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    void write(
+//            const dds::topic::TopicInstance<T>& i,
+//            const dds::core::Time& timestamp);
 
     /**
      * This operation writes a series of typed Samples or TopicInstances.
@@ -1434,9 +1422,7 @@ public:
      */
     // TODO Uncomment when PSM DDS Topic is ready to be used
     //dds::topic::TopicInstance<T>& key_value(
-//    dds::topic::TopicInstance& key_value(
-//            //dds::topic::TopicInstance<T>& i,
-//            dds::topic::TopicInstance& i,
+//            dds::topic::TopicInstance<T>& i,
 //            const ::dds::core::InstanceHandle& h);
 
     /**
@@ -1522,9 +1508,8 @@ public:
      * @throws dds::core::AlreadyClosedError
      *                  The entity has already been closed.
      */
-    //const dds::topic::Topic<T>& topic() const;
     // TODO Uncomment when PSM DDS Topic is ready to be used
-    //const dds::topic::Topic& topic() const;
+    //const dds::topic::Topic<T>& topic() const;
 
     //==========================================================================
     //== Listeners Management
@@ -1606,8 +1591,7 @@ public:
      *                  complete this operation.
      */
     void listener(
-            //DataWriterListener<T>* listener,
-            DataWriterListener* listener,
+            DataWriterListener<T>* listener,
             const ::dds::core::status::StatusMask& mask);
 
     /**
@@ -1619,8 +1603,7 @@ public:
      * @throws dds::core::NullReferenceError
      *                  The entity was not properly created and references to dds::core::null.
      */
-    //DataWriterListener<T>* listener() const;
-    DataWriterListener* listener() const;
+    DataWriterListener<T>* listener() const;
 };
 
 } //namespace pub

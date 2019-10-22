@@ -15,8 +15,8 @@
  *
 */
 
-#ifndef EPROSIMA_DDS_PUB_TPUBLISHER_IMPL_HPP_
-#define EPROSIMA_DDS_PUB_TPUBLISHER_IMPL_HPP_
+#ifndef EPROSIMA_DDS_PUB_PUBLISHER_IMPL_HPP_
+#define EPROSIMA_DDS_PUB_PUBLISHER_IMPL_HPP_
 
 /**
  * @file
@@ -127,4 +127,4 @@ const dds::domain::DomainParticipant& Publisher::participant() const
 } //namespace pub
 } //namespace dds
 
-#endif //EPROSIMA_DDS_PUB_TPUBLISHER_IMPL_HPP_
+#endif //EPROSIMA_DDS_PUB_PUBLISHER_IMPL_HPP_

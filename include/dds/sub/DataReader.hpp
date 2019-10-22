@@ -22,6 +22,8 @@
 
 #include <dds/sub/detail/DataReader.hpp>
 
+#include <dds/sub/AnyDataReader.hpp>
+
 
 namespace dds {
 namespace sub {
@@ -30,9 +32,6 @@ template<typename T,
 template<typename Q> class DELEGATE = dds::sub::detail::DataReader>
 class DataReader;
 
-template<
-        typename T,
-        template<typename Q> class DELEGATE>
 class DataReaderListener;
 
 // = Manipulators
@@ -109,16 +108,13 @@ typedef dds::sub::functors::detail::NextInstanceManipulatorFunctor   NextInstanc
  * @see @ref DCPS_Modules_Subscription "Subscription concept"
  * @see @ref DCPS_Modules_Subscription_DataReader "DataReader concept"
  */
-template<
-        typename T,
-        template<typename Q> class DELEGATE>
-class DataReader : public TAnyDataReader< DELEGATE<T> >
+class DataReader : public TAnyDataReader<detail::DataReader>
 {
 public:
     /**
      * Local convenience typedef for dds::sub::DataReaderListener.
      */
-    typedef DataReaderListener<T, DELEGATE> Listener;
+    using Listener = DataReaderListener;
 
     /**
      * The Selector class is used by the DataReader to compose read operations.

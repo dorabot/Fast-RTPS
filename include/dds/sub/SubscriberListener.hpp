@@ -169,7 +169,6 @@ public:
      *            an input to the application provided by the Data Distribution Service).
      */
     virtual void on_data_on_readers(
-            //Subscriber& sub) = 0;
             Subscriber& sub) = 0;
 };
 

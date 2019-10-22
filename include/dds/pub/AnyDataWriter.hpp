@@ -43,20 +43,19 @@ namespace pub {
  * and DomainParticipantListener.
  *
  */
-template<typename DELEGATE>
-class TAnyDataWriter : public dds::core::TEntity<DELEGATE>
+class AnyDataWriter : public dds::core::TEntity<detail::AnyDataWriter>
 {
 public:
     OMG_DDS_REF_TYPE_PROTECTED_DC(
-            TAnyDataWriter,
+            AnyDataWriter,
             dds::core::TEntity,
-            DELEGATE)
+            detail::AnyDataWriter)
 
     OMG_DDS_IMPLICIT_REF_BASE(
-            TAnyDataWriter)
+            AnyDataWriter)
 
     /** @cond */
-    virtual ~TAnyDataWriter();
+    virtual ~AnyDataWriter();
     /** @endcond */
 
     //==========================================================================
@@ -145,11 +144,11 @@ public:
             const qos::DataWriterQos& qos);
 
     /** @copydoc dds::pub::TAnyDataWriter::qos(const dds::pub::qos::DataWriterQos& qos) */
-    TAnyDataWriter& operator <<(
+    AnyDataWriter& operator <<(
             const qos::DataWriterQos& qos);
 
     /** @copydoc dds::pub::TAnyDataWriter::qos() */
-    const TAnyDataWriter& operator >>(
+    const AnyDataWriter& operator >>(
             qos::DataWriterQos& qos) const;
 
 
@@ -359,8 +358,6 @@ public:
     void assert_liveliness();
 
 };
-
-typedef ::dds::pub::detail::AnyDataWriter AnyDataWriter;
 
 } //namespace pub
 } //namespace dds

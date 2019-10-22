@@ -42,7 +42,8 @@ namespace sub {
  *
  * @see dds::sub::DataReader
  */
-class AnyDataReader : public dds::core::TEntity<detail::AnyDataReader>
+template <typename T>
+class TAnyDataReader : public dds::core::TEntity<detail::AnyDataReader>
 {
 public:
 
@@ -52,10 +53,10 @@ public:
             detail::AnyDataReader)
 
     OMG_DDS_IMPLICIT_REF_BASE(
-            AnyDataReader)
+            TAnyDataReader)
 
     /** @cond */
-    virtual ~AnyDataReader();
+    virtual ~TAnyDataReader();
     /** @endcond */
 
     //==========================================================================
@@ -196,11 +197,11 @@ public:
             const qos::DataReaderQos& qos);
 
     /** @copydoc dds::sub::TAnyDataReader::qos(const dds::sub::qos::DataReaderQos& qos) */
-    AnyDataReader& operator <<(
+    TAnyDataReader& operator <<(
             const qos::DataReaderQos& qos);
 
     /** @copydoc dds::sub::TAnyDataReader::qos() */
-    const AnyDataReader& operator >>(
+    const TAnyDataReader& operator >>(
             qos::DataReaderQos& qos) const;
 
 
