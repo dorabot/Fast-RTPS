@@ -26,6 +26,7 @@
  * OMG PSM class declaration
  */
 #include <dds/pub/AnyDataWriter.hpp>
+#include <dds/core/status/Status.hpp>
 
 namespace dds {
 namespace pub {
@@ -36,38 +37,45 @@ AnyDataWriter::~AnyDataWriter()
 
 const dds::pub::Publisher& AnyDataWriter::publisher() const
 {
-    return delegate()->get_publisher();
+    //return delegate()->get_publisher();
+    return dds::core::null;
 }
 
 const dds::topic::TopicDescription& AnyDataWriter::topic_description() const
 {
+    dds::topic::TopicDescription topic;
     //TODO Implement topic_description in fastdds DataWriter
     //return delegate()->topic_description();
-    return *this;
+    return topic;
 }
 
 qos::DataWriterQos AnyDataWriter::qos() const
 {
-    return delegate()->get_qos();
+    qos::DataWriterQos qos;
+    // TODO Use DataWriterQos instead of WriterQos
+    //return delegate()->get_qos();
+    return qos;
 }
 
 void AnyDataWriter::qos(
         const qos::DataWriterQos& qos)
 {
-    delegate()->set_qos(qos);
+    (void) qos;
+    // TODO Use DataWriterQos instead of WriterQos
+    //delegate()->set_qos(qos);
 }
 
 AnyDataWriter& AnyDataWriter::operator <<(
         const dds::pub::qos::DataWriterQos& qos)
 {
-    delegate()->qos(qos);
+    this->qos(qos);
     return *this;
 }
 
 const AnyDataWriter& AnyDataWriter::operator >>(
         qos::DataWriterQos& qos) const
 {
-    qos = delegate()->qos();
+    qos = this->qos();
     return *this;
 }
 
@@ -88,7 +96,7 @@ const dds::core::status::LivelinessLostStatus AnyDataWriter::liveliness_lost_sta
 const dds::core::status::OfferedDeadlineMissedStatus AnyDataWriter::offered_deadline_missed_status()
 {
     dds::core::status::OfferedDeadlineMissedStatus status;
-    delegate()->offered_deadline_missed_status(status);
+    delegate()->get_offered_deadline_missed_status(status);
     return status;
 }
 

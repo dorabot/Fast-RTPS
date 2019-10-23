@@ -31,12 +31,38 @@ enum SampleRejectedStatusKind
     NOT_REJECTED,
     REJECTED_BY_INSTANCES_LIMIT,
     REJECTED_BY_SAMPLES_LIMIT,
-    REJECTED_BY_SAMPELS_PER_INSTANCE_LIMIT
+    REJECTED_BY_SAMPLES_PER_INSTANCE_LIMIT
 };
 
 //! @brief A struct storing the sample lost status
-struct SampleRejectedStatus
+class SampleRejectedStatus
 {
+public:
+
+    SampleRejectedStatus() {}
+
+    ~SampleRejectedStatus() {}
+
+    int32_t get_total_count() const
+    {
+        return total_count;
+    }
+
+    int32_t get_total_count_change() const
+    {
+        return total_count_change;
+    }
+
+    SampleRejectedStatusKind get_last_reason() const
+    {
+        return last_reason;
+    }
+
+    fastrtps::rtps::InstanceHandle_t get_last_instance_handle() const
+    {
+        return last_instance_handle;
+    }
+
     /**
      * Total cumulative count of samples rejected by the DataReader.
      */

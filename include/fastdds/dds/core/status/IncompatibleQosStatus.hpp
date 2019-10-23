@@ -42,8 +42,40 @@ struct QosPolicyCount
 using QosPolicyCountSeq = std::vector<QosPolicyCount>;
 
 //! @brief A struct storing the requested incompatible QoS status
-struct IncompatibleQosStatus
+class IncompatibleQosStatus
 {
+public:
+    IncompatibleQosStatus() {}
+
+    ~IncompatibleQosStatus() {}
+
+    int32_t get_total_count() const
+    {
+        return total_count;
+    }
+
+    int32_t get_total_count_change() const
+    {
+        return total_count_change;
+    }
+
+    QosPolicyId_t get_last_policy_id() const
+    {
+        return last_policy_id;
+    }
+
+    QosPolicyCountSeq get_policies() const
+    {
+        return policies;
+    }
+
+    QosPolicyCountSeq& get_policies(
+            QosPolicyCountSeq& dst) const
+    {
+        dst = policies;
+        return dst;
+    }
+
     //! @brief Total cumulative number of times the concerned writer discovered a reader for the same topic
     //! @details The requested QoS is incompatible with the one offered by the writer
     int32_t total_count = 0;

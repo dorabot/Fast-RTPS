@@ -26,8 +26,23 @@ namespace fastdds {
 namespace dds {
 
 //! @brief A struct storing the base status
-struct BaseStatus
+class BaseStatus
 {
+public:
+    BaseStatus() {}
+
+    ~BaseStatus() {}
+
+    int32_t get_total_count() const
+    {
+        return total_count;
+    }
+
+    int32_t get_total_count_change() const
+    {
+        return total_count_change;
+    }
+
     int32_t total_count = 0;
 
     int32_t total_count_change = 0;

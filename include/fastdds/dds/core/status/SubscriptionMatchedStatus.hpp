@@ -31,6 +31,17 @@ namespace dds {
 //! @brief A structure storing the subscription status
 struct SubscriptionMatchedStatus: public MatchedStatus
 {
+public:
+
+    SubscriptionMatchedStatus() {}
+
+    ~SubscriptionMatchedStatus() {}
+
+    eprosima::fastrtps::rtps::InstanceHandle_t get_last_publication_handle() const
+    {
+        return last_publication_handle;
+    }
+
 	//! @brief Handle to the last writer that matched the reader causing the status change
 	eprosima::fastrtps::rtps::InstanceHandle_t last_publication_handle;
 };

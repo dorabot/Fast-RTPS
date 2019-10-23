@@ -200,10 +200,14 @@ set(${PROJECT_NAME}_source_files
     dds/pub/Publisher.cpp
     dds/sub/Subscriber.cpp
     dds/pub/DataWriter.cpp
+    dds/pub/AnyDataWriter.cpp
+    dds/sub/DataReader.cpp
+    dds/sub/AnyDataReader.cpp
     dds/core/Time.cpp
     dds/core/Duration.cpp
     dds/core/InstanceHandle.cpp
     dds/core/types.cpp
+    dds/core/status/Status.cpp
     )
 
 # TLS Support

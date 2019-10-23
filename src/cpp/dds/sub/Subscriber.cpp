@@ -47,6 +47,11 @@ Subscriber::Subscriber(
 {
 }
 
+Subscriber::Subscriber(
+        const detail::Subscriber& /* sub*/)
+{
+}
+
 Subscriber::~Subscriber() {}
 
 void Subscriber::notify_datareaders()

@@ -23,25 +23,26 @@
 #include <dds/sub/detail/DataReader.hpp>
 
 #include <dds/sub/AnyDataReader.hpp>
-
+#include <dds/sub/detail/Manipulators.hpp>
+#include <dds/sub/LoanedSamples.hpp>
 
 namespace dds {
 namespace sub {
 
-template<typename T,
-template<typename Q> class DELEGATE = dds::sub::detail::DataReader>
+template<typename T>
 class DataReader;
 
+template<typename T>
 class DataReaderListener;
 
 // = Manipulators
 namespace functors {
 
-typedef dds::sub::functors::detail::MaxSamplesManipulatorFunctor      MaxSamplesManipulatorFunctor;
-typedef dds::sub::functors::detail::ContentFilterManipulatorFunctor   ContentFilterManipulatorFunctor;
-typedef dds::sub::functors::detail::StateFilterManipulatorFunctor   StateFilterManipulatorFunctor;
-typedef dds::sub::functors::detail::InstanceManipulatorFunctor     InstanceManipulatorFunctor;
-typedef dds::sub::functors::detail::NextInstanceManipulatorFunctor   NextInstanceManipulatorFunctor;
+using MaxSamplesManipulatorFunctor = dds::sub::functors::detail::MaxSamplesManipulatorFunctor;
+using ContentFilterManipulatorFunctor = dds::sub::functors::detail::ContentFilterManipulatorFunctor;
+using StateFilterManipulatorFunctor = dds::sub::functors::detail::StateFilterManipulatorFunctor;
+using InstanceManipulatorFunctor = dds::sub::functors::detail::InstanceManipulatorFunctor;
+using NextInstanceManipulatorFunctor = dds::sub::functors::detail::NextInstanceManipulatorFunctor;
 
 } //namespace functors
 
@@ -108,13 +109,14 @@ typedef dds::sub::functors::detail::NextInstanceManipulatorFunctor   NextInstanc
  * @see @ref DCPS_Modules_Subscription "Subscription concept"
  * @see @ref DCPS_Modules_Subscription_DataReader "DataReader concept"
  */
-class DataReader : public TAnyDataReader<detail::DataReader>
+template<typename T>
+class DataReader : public AnyDataReader
 {
 public:
     /**
      * Local convenience typedef for dds::sub::DataReaderListener.
      */
-    using Listener = DataReaderListener;
+    using Listener = DataReaderListener<T>;
 
     /**
      * The Selector class is used by the DataReader to compose read operations.
@@ -172,7 +174,7 @@ public:
          * @param DataReader
          */
         Selector(
-                DataReader& dr);
+                DataReader<T>& dr);
 
         /**
          * Set InstanceHandle to filter with during the read or take.
@@ -454,7 +456,7 @@ public:
                 SamplesBIIterator sbit);
 
     private:
-        typename DELEGATE<T>::Selector impl_;
+        typename detail::DataReader<T>::Selector impl_;
     };
 
     /**
@@ -791,17 +793,15 @@ public:
                 Functor f);
 
     private:
-        typename DELEGATE<T>::ManipulatorSelector impl_;
+        typename detail::DataReader<T>::ManipulatorSelector impl_;
 
     };
 
 public:
 
-    OMG_DDS_REF_TYPE_PROTECTED_DC_T(
+    OMG_DDS_EXPLICIT_REF_BASE_DECL(
             DataReader,
-            TAnyDataReader,
-            T,
-            DELEGATE)
+            AnyDataReader)
 
     OMG_DDS_IMPLICIT_REF_BASE(
             DataReader)
@@ -831,9 +831,10 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    DataReader(
-            const Subscriber& sub,
-            const ::dds::topic::Topic<T>& topic);
+    // TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataReader(
+//            const Subscriber& sub,
+//            const ::dds::topic::Topic<T>& topic);
 
     /**
      * Create a new DataReader for the desired Topic, ContentFilteredTopic or MultiTopic,
@@ -892,44 +893,49 @@ public:
      * @throws dds::core::InconsistentPolicyError
      *                  The parameter qos contains conflicting QosPolicy settings.
      */
-    DataReader(
-            const Subscriber& sub,
-            const ::dds::topic::Topic<T>& topic,
-            const qos::DataReaderQos& qos,
-            DataReaderListener<T, DELEGATE>* listener = NULL,
-            const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
+    // TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataReader(
+//            const Subscriber& sub,
+//            const ::dds::topic::Topic<T>& topic,
+//            const qos::DataReaderQos& qos,
+//            DataReaderListener<T, DELEGATE>* listener = NULL,
+//            const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
 
     /** @copydoc dds::sub::DataReader::DataReader(const dds::sub::Subscriber& sub, const ::dds::topic::Topic<T>& topic) */
-    DataReader(
-            const Subscriber& sub,
-            const ::dds::topic::ContentFilteredTopic<T>& topic);
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataReader(
+//            const Subscriber& sub,
+//            const ::dds::topic::ContentFilteredTopic<T>& topic);
 
     /** @copydoc dds::sub::DataReader::DataReader(const dds::sub::Subscriber& sub, const ::dds::topic::Topic<T>& topic, const dds::sub::qos::DataReaderQos& qos, dds::sub::DataReaderListener<T>* listener, const dds::core::status::StatusMask& mask) */
-    DataReader(
-            const dds::sub::Subscriber& sub,
-            const ::dds::topic::ContentFilteredTopic<T>& topic,
-            const qos::DataReaderQos& qos,
-            DataReaderListener<T>* listener = NULL,
-            const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataReader(
+//            const dds::sub::Subscriber& sub,
+//            const ::dds::topic::ContentFilteredTopic<T>& topic,
+//            const qos::DataReaderQos& qos,
+//            DataReaderListener<T>* listener = NULL,
+//            const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     #endif //OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
 
     #ifdef OMG_DDS_MULTI_TOPIC_SUPPORT
 
     /** @copydoc dds::sub::DataReader::DataReader(const dds::sub::Subscriber& sub, const ::dds::topic::Topic<T>& topic) */
-    DataReader(
-            const dds::sub::Subscriber& sub,
-            const ::dds::topic::MultiTopic<T>& topic);
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataReader(
+//            const dds::sub::Subscriber& sub,
+//            const ::dds::topic::MultiTopic<T>& topic);
 
     /** @copydoc dds::sub::DataReader::DataReader(const dds::sub::Subscriber& sub, const ::dds::topic::Topic<T>& topic, const dds::sub::qos::DataReaderQos& qos, dds::sub::DataReaderListener<T>* listener, const dds::core::status::StatusMask& mask) */
-    DataReader(
-           const Subscriber& sub,
-           const ::dds::topic::MultiTopic<T>& topic,
-           const qos::DataReaderQos& qos,
-           DataReaderListener<T>* listener = NULL,
-           const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    DataReader(
+//           const Subscriber& sub,
+//           const ::dds::topic::MultiTopic<T>& topic,
+//           const qos::DataReaderQos& qos,
+//           DataReaderListener<T>* listener = NULL,
+//           const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     #endif //OMG_DDS_MULTI_TOPIC_SUPPORT
 
@@ -1565,8 +1571,9 @@ public:
      * @throws dds::core::PreconditionNotMetError
      *                  The handle has not been registered with this DataReader.
      */
-    dds::topic::TopicInstance<T> key_value(
-            const dds::core::InstanceHandle& h);
+// TODO Uncomment when PSM DDS Topic is ready to be used
+//    dds::topic::TopicInstance<T> key_value(
+//            const dds::core::InstanceHandle& h);
 
     /**
      * This operation retrieves the key value of a specific instance.

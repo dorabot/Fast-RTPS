@@ -33,103 +33,103 @@ AnyDataReader::~AnyDataReader()
 {
 }
 
-const dds::sub::Subscriber& AnyDataReader::subscriber() const
+const Subscriber& AnyDataReader::subscriber() const
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->subscriber();
+    return *delegate()->get_subscriber();
 }
 
 const dds::topic::TopicDescription& AnyDataReader::topic_description() const
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
+    //TODO Implement topic_description in fastdss DataReader
+    dds::topic::TopicDescription topic;
 //    return this->delegate()->topic_description();
+    return topic;
 }
 
 void AnyDataReader::wait_for_historical_data(
         const dds::core::Duration& timeout)
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    this->delegate()->wait_for_historical_data(timeout);
+    (void) timeout;
+    //TODO Implement wait_for_historical_data in fastdds DataReader
+//    delegate()->wait_for_historical_data(timeout);
 }
 
 
 dds::sub::qos::DataReaderQos AnyDataReader::qos() const
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->qos();
+    qos::DataReaderQos qos;
+    // TODO Use DataReaderQos instead of ReaderQos
+//    return delegate()->get_qos();
+    return qos;
 }
 
 void AnyDataReader::qos(
         const dds::sub::qos::DataReaderQos& qos)
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    this->delegate()->qos(qos);
+    (void) qos;
+    // TODO Use DataReaderQos instead of ReaderQos
+//    delegate()->qos(qos);
 }
 
 AnyDataReader& AnyDataReader::operator <<(
         const dds::sub::qos::DataReaderQos& qos)
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    this->delegate()->qos(qos);
-//    return *this;
+    this->qos(qos);
+    return *this;
 }
 
 const AnyDataReader& AnyDataReader::operator >>(
         dds::sub::qos::DataReaderQos& qos) const
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    qos = this->delegate()->qos();
-//    return *this;
+    qos = this->qos();
+    return *this;
 }
 
 
 dds::core::status::LivelinessChangedStatus AnyDataReader::liveliness_changed_status()
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->liveliness_changed_status();
+    dds::core::status::LivelinessChangedStatus status;
+    delegate()->get_liveliness_changed_status(status);
+    return status;
 }
 
 dds::core::status::SampleRejectedStatus AnyDataReader::sample_rejected_status()
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->sample_rejected_status();
+    dds::core::status::SampleRejectedStatus status;
+    //TODO Implement get_sample_rejected_status in fastdds DataReader
+    //delegate()->get_sample_rejected_status(status);
+    return status;
 }
 
 dds::core::status::SampleLostStatus AnyDataReader::sample_lost_status()
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->sample_lost_status();
+    dds::core::status::SampleLostStatus status;
+    //TODO Implement get_sample_lost_status in fastdds DataReader
+    //delegate()->get_sample_lost_status(status);
+    return status;
 }
 
 dds::core::status::RequestedDeadlineMissedStatus AnyDataReader::requested_deadline_missed_status()
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->requested_deadline_missed_status();
+    dds::core::status::RequestedDeadlineMissedStatus status;
+    delegate()->get_requested_deadline_missed_status(status);
+    return status;
 }
 
 dds::core::status::RequestedIncompatibleQosStatus AnyDataReader::requested_incompatible_qos_status()
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->requested_incompatible_qos_status();
+    dds::core::status::RequestedIncompatibleQosStatus status;
+    //TODO Implement get_requested_incompatible_qos_status in fastdds DataReader
+    //delegate()->get_requested_incompatible_qos_status(status);
+    return status;
 }
 
 dds::core::status::SubscriptionMatchedStatus AnyDataReader::subscription_matched_status()
 {
-    //To implement
-//    ISOCPP_REPORT_STACK_DDS_BEGIN(*this);
-//    return this->delegate()->subscription_matched_status();
+    dds::core::status::SubscriptionMatchedStatus status;
+    //TODO Implement subscription_matched_status in fastdds DataReader
+//    return delegate()->subscription_matched_status(status);
+    return status;
 }
 
 } //namespace sub

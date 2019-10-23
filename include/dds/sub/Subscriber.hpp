@@ -26,6 +26,7 @@
 
 #include <dds/core/Entity.hpp>
 #include <dds/domain/DomainParticipant.hpp>
+#include <dds/core/status/Status.hpp>
 
 namespace dds {
 namespace sub {
@@ -107,6 +108,9 @@ public:
             const qos::SubscriberQos& qos,
             SubscriberListener* listener = NULL,
             const dds::core::status::StatusMask& mask = dds::core::status::StatusMask::none());
+
+    Subscriber(
+            const detail::Subscriber& sub);
 
     /** @cond */
     virtual ~Subscriber();

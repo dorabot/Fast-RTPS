@@ -26,8 +26,40 @@ namespace fastdds {
 namespace dds {
 
 //! @brief A struct storing the liveliness changed status
-struct LivelinessChangedStatus
+class LivelinessChangedStatus
 {
+public:
+
+    LivelinessChangedStatus() {}
+
+    ~LivelinessChangedStatus() {}
+
+    int32_t get_alive_count() const
+    {
+        return alive_count;
+    }
+
+    int32_t get_alive_count_change() const
+    {
+        return alive_count_change;
+    }
+
+    int32_t get_not_alive_count() const
+    {
+        return not_alive_count;
+    }
+
+    int32_t get_not_alive_count_change() const
+    {
+        return not_alive_count_change;
+    }
+
+    fastrtps::rtps::InstanceHandle_t get_last_publication_handle() const
+    {
+        return last_publication_handle;
+    }
+
+
     //! @brief The total number of currently active publishers that write the topic read by the subscriber
     //! @details This count increases when a newly matched publisher asserts its liveliness for the first time
     //! or when a publisher previously considered to be not alive reasserts its liveliness. The count decreases

@@ -27,8 +27,9 @@ namespace dds {
 
 //! @brief A struct storing the deadline status
 //! @ingroup DEADLINE_MODULE
-struct DeadlineMissedStatus
+class DeadlineMissedStatus
 {
+public:
     //! @brief Constructor
     DeadlineMissedStatus()
         : total_count()
@@ -37,8 +38,22 @@ struct DeadlineMissedStatus
     {}
 
     //! @brief Destructor
-    ~DeadlineMissedStatus()
-    {}
+    ~DeadlineMissedStatus() {}
+
+    int32_t get_total_count() const
+    {
+        return total_count;
+    }
+
+    int32_t get_total_count_change() const
+    {
+        return total_count_change;
+    }
+
+    fastrtps::rtps::InstanceHandle_t get_last_instance_handle() const
+    {
+        return last_instance_handle;
+    }
 
     //! @brief Total cumulative number of offered deadline periods epased during which a writer failed to provide data
     //! @details Missed deadlines accumulate, that is, each deadline period the total_count will be incremented by 1

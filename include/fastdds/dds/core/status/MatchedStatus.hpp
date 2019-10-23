@@ -26,13 +26,35 @@ namespace fastdds {
 namespace dds {
 
 //! @brief A structure storing the subscription status
-struct MatchedStatus
+class MatchedStatus
 {
+public:
+
 	//! @brief Constructor
     MatchedStatus() = default;
 
     //! @brief Destructor
     ~MatchedStatus() = default;
+
+    int32_t get_total_count() const
+    {
+        return total_count;
+    }
+
+    int32_t get_total_count_change() const
+    {
+        return total_count_change;
+    }
+
+    int32_t get_current_count() const
+    {
+        return current_count;
+    }
+
+    int32_t get_current_count_change() const
+    {
+        return current_count_change;
+    }
 
 	//! @brief Total cumulative count the concerned reader discovered a match with a writer
 	//! @details It found a writer for te same topic with a requested QoS that is compatible with that offered by the reader

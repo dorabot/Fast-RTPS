@@ -32,6 +32,7 @@ namespace dds {
 namespace core {
 
 InstanceHandle::InstanceHandle()
+    : Value()
 {
 }
 
@@ -56,6 +57,11 @@ InstanceHandle::InstanceHandle(
 {
 }
 
+InstanceHandle::InstanceHandle(
+        const detail::InstanceHandle& /*other*/)
+{
+}
+
 InstanceHandle::~InstanceHandle()
 {
 }
@@ -63,7 +69,6 @@ InstanceHandle::~InstanceHandle()
 InstanceHandle& InstanceHandle::operator=(
         const InstanceHandle& that)
 {
-    //To implement
     if(this != &that)
     {
         this->delegate() = that.delegate();
@@ -74,21 +79,18 @@ InstanceHandle& InstanceHandle::operator=(
 bool InstanceHandle::operator ==(
         const InstanceHandle& that) const
 {
-    //To implement
     return this->delegate() == that.delegate();
 }
 
 bool InstanceHandle::operator <(
         const InstanceHandle& that) const
 {
-    //To implement
     return this->delegate() < that.delegate();
 }
 
 bool InstanceHandle::operator >(
         const InstanceHandle& that) const
 {
-    //To implement
     for (int i = 0; i < 16; ++i)
     {
         if (delegate().value[i] > that.delegate().value[i])
@@ -97,7 +99,6 @@ bool InstanceHandle::operator >(
         }
     }
     return false;
-    //return this->delegate() > that.delegate();
 }
 
 const InstanceHandle InstanceHandle::nil()
@@ -111,7 +112,6 @@ const InstanceHandle InstanceHandle::nil()
 
 bool InstanceHandle::is_nil() const
 {
-    //To implement
     return !this->delegate().isDefined();
 }
 

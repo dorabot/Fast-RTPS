@@ -61,6 +61,9 @@ public:
     InstanceHandle(
             const InstanceHandle& other);
 
+    InstanceHandle(
+            const detail::InstanceHandle& other);
+
     /** @cond */
     ~InstanceHandle();
     /** @endcond */

@@ -21,10 +21,13 @@
 #define OMG_DDS_SUB_ANY_DATA_READER_HPP_
 
 #include <dds/sub/detail/AnyDataReader.hpp>
+
 #include <dds/sub/Subscriber.hpp>
+#include <dds/sub/qos/DataReaderQos.hpp>
+
 #include <dds/core/Entity.hpp>
 #include <dds/topic/TopicDescription.hpp>
-#include <dds/sub/qos/DataReaderQos.hpp>
+
 
 namespace dds {
 namespace sub {
@@ -42,21 +45,20 @@ namespace sub {
  *
  * @see dds::sub::DataReader
  */
-template <typename T>
-class TAnyDataReader : public dds::core::TEntity<detail::AnyDataReader>
+class AnyDataReader : public dds::core::TEntity<detail::AnyDataReader>
 {
 public:
 
     OMG_DDS_REF_TYPE_PROTECTED_DC(
-            TAnyDataReader,
+            AnyDataReader,
             dds::core::TEntity,
             detail::AnyDataReader)
 
     OMG_DDS_IMPLICIT_REF_BASE(
-            TAnyDataReader)
+            AnyDataReader)
 
     /** @cond */
-    virtual ~TAnyDataReader();
+    virtual ~AnyDataReader();
     /** @endcond */
 
     //==========================================================================
@@ -73,7 +75,7 @@ public:
      * @throws dds::core::AlreadyClosedError
      *                  The entity has already been closed.
      */
-    const dds::sub::Subscriber& subscriber() const;
+    const Subscriber& subscriber() const;
 
     /**
      * Get the TopicDescription associated with this DataReader.
@@ -197,11 +199,11 @@ public:
             const qos::DataReaderQos& qos);
 
     /** @copydoc dds::sub::TAnyDataReader::qos(const dds::sub::qos::DataReaderQos& qos) */
-    TAnyDataReader& operator <<(
+    AnyDataReader& operator <<(
             const qos::DataReaderQos& qos);
 
     /** @copydoc dds::sub::TAnyDataReader::qos() */
-    const TAnyDataReader& operator >>(
+    const AnyDataReader& operator >>(
             qos::DataReaderQos& qos) const;
 
 
