@@ -57,10 +57,8 @@ namespace topic {
  *
  * @see @ref DCPS_Modules_TopicDefinition "Topic Definition"
  */
-template<
-        typename T,
-        template<typename Q> class DELEGATE>
-class TTopic : public TAnyTopic<DELEGATE<T>>
+template<typename T>
+class Topic : public TAnyTopic<detail::Topic>
 {
 public:
     /**
@@ -73,17 +71,23 @@ public:
      */
     typedef TopicListener<T> Listener;
 
+    OMG_DDS_REF_TYPE_PROTECTED_DC(
+            Topic,
+            TAnyTopic,
+            detail::Topic)
+    /*
     OMG_DDS_REF_TYPE_PROTECTED_DC_T(
-            TTopic,
+            Topic,
             TAnyTopic,
             T,
             DELEGATE)
+    */
 
     OMG_DDS_IMPLICIT_REF_BASE(
-            TTopic)
+            Topic)
 
     /** @cond */
-    virtual ~TTopic();
+    virtual ~Topic();
     /** @endcond */
 
     /**
@@ -129,7 +133,7 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    TTopic(
+    Topic(
             const dds::domain::DomainParticipant& dp,
             const std::string& topic_name);
 
@@ -177,7 +181,7 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    TTopic(
+    Topic(
             const dds::domain::DomainParticipant& dp,
             const std::string& topic_name,
             const std::string& type_name);
@@ -244,7 +248,7 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    TTopic(
+    Topic(
             const dds::domain::DomainParticipant& dp,
             const std::string& topic_name,
             const dds::topic::qos::TopicQos& qos,
@@ -314,7 +318,7 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    TTopic(
+    Topic(
             const dds::domain::DomainParticipant& dp,
             const std::string& topic_name,
             const std::string& type_name,
@@ -339,7 +343,7 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    TTopic(
+    Topic(
             const dds::domain::DomainParticipant& dp,
             const std::string& topic_name,
             const dds::core::xtypes::DynamicType type);
@@ -362,7 +366,7 @@ public:
      *                  The Data Distribution Service ran out of resources to
      *                  complete this operation.
      */
-    TTopic(
+    Topic(
             const dds::domain::DomainParticipant& dp,
             const std::string& topic_name,
             const dds::core::xtypes::DynamicType type
@@ -452,10 +456,9 @@ public:
 
 };
 
-template<typename T>
-class Topic : public TTopic<T, detail::Topic> { };
-
 } //namespace topic
 } //namespace dds
+
+#include <dds/topic/detail/TTopicImpl.hpp>
 
 #endif //OMG_DDS_TOPIC_TOPIC_HPP_

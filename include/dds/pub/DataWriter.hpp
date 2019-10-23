@@ -201,7 +201,7 @@ public:
             const Publisher& pub,
             const ::dds::topic::Topic<T>& topic,
             const qos::DataWriterQos& qos,
-            DataWriterListener<T>* listener = NULL,
+            DataWriterListener<T>* listener = nullptr,
             const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     /** @cond */
@@ -1604,5 +1604,7 @@ public:
 
 } //namespace pub
 } //namespace dds
+
+#include <dds/pub/detail/DataWriterImpl.hpp>
 
 #endif //OMG_DDS_PUB_DATA_WRITER_HPP_

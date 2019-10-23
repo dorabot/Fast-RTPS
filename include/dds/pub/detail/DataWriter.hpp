@@ -22,10 +22,7 @@
 #include <dds/pub/AnyDataWriter.hpp>
 #include <dds/topic/detail/Topic.hpp>
 
-//#include <org/opensplice/core/EntityDelegate.hpp>
-//#include <org/opensplice/topic/TopicTraits.hpp>
-//#include <org/opensplice/core/ScopedLock.hpp>
-//#include <org/opensplice/pub/AnyDataWriterDelegate.hpp>
+#include <fastdds/dds/topic/DataWriter.hpp>
 
 /**
  * @cond
@@ -41,7 +38,9 @@ class DataWriterListener;
 namespace detail {
 
 template<typename T>
-class DataWriter { };
+class DataWriter : public eprosima::fastdds::dds::DataWriter
+{
+};
 
 } //namespace detail
 

@@ -24,7 +24,28 @@
 #include <fastdds/dds/core/status/BaseStatus.hpp>
 #include <fastrtps/types/TypesBase.h>
 
+#include <dds/core/status/Status.hpp>
+
 using eprosima::fastrtps::types::ReturnCode_t;
+
+namespace dds {
+namespace core {
+} // namespace core
+namespace pub {
+template<typename T, template<typename Q> class DELEGATE>
+class DataWriter;
+template<class T>
+class DataWriterListener;
+class Publisher;
+namespace qos {
+class DataWriterQos;
+} // namespace qos
+} // namespace pub
+namespace topic {
+template<class T>
+class Topic;
+} // namespace topic
+} // namespace ::dds
 
 namespace eprosima {
 namespace fastrtps {
@@ -63,6 +84,16 @@ class RTPS_DllAPI DataWriter
 {
     friend class PublisherImpl;
     friend class DataWriterImpl;
+    template< typename T, template<typename Q> class DELEGATE>
+    friend class ::dds::pub::DataWriter;
+
+    template<class T>
+    DataWriter(
+            const ::dds::pub::Publisher& pub,
+            const ::dds::topic::Topic<T>& topic,
+            const ::dds::pub::qos::DataWriterQos& qos,
+            ::dds::pub::DataWriterListener<T>* listener = nullptr,
+            const ::dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::none());
 
     /**
      * Create a data writer, assigning its pointer to the associated writer.
